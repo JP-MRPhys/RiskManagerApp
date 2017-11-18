@@ -1,0 +1,22 @@
+avroSchema = {
+   name: 'tickdata',
+   type: 'record',
+   fields: [
+     {
+       name: 'ticker',
+       type: 'string'
+     }, {
+       name: 'timestamp',
+       type: 'double'
+     },{
+       name: 'bid',
+       type: 'double'
+     }, {
+       name: 'ask',
+       type: 'double'
+     },{
+       name: 'volume',
+       type: 'double'
+     }
+     ]
+ }
