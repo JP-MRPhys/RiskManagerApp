@@ -1,5 +1,4 @@
-# Complete Guide to Node Authentication with MySQL
-
+# Risk Manager and portfolio analytics 
 
 
 Code for the entire scotch.io tutorial series: Complete Guide to Node Authentication with MongoDB
@@ -20,4 +19,3 @@ If you would like to download the code and try it for yourself:
 1. Visit in your browser at: `http://localhost:8080`
 
 
-Licence: 1
