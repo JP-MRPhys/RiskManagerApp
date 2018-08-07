@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app      = express();
 var MySQLStore = require('express-mysql-session')(session);
-var port     = process.env.PORT || 8081;
+var port     = process.env.PORT || 2000;
 var mysql =require('mysql')
 
 var passport = require('passport');
@@ -21,8 +21,10 @@ var flash    = require('connect-flash');
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
 var IntrinioRealtime = require('intrinio-realtime');
-// Create an IntrinioRealtime instance
 
+
+
+// Create an IntrinioRealtime instance
 var lasprices=[];
 
 
@@ -65,7 +67,6 @@ function create_sql_entries (data){
 
   }
 
-
 function add_portfolio_to_database(data,create_sql_entries)
 {
       return create_sql_entries(data);
@@ -103,7 +104,6 @@ console.log("PORTFOLIO LIST");
 console.log(portfolio);
 console.log(socketid);
 io.to(socketid).emit('portfolio_list', portfolio);
-
 }
 
 
@@ -229,7 +229,7 @@ function queryTicker(username,portfolio, callback){
 }
 
 function streamlivedata(tickers,weights,socketid){
-  console.log('TickerCallb/ack')
+  console.log('TickerCallback')
   console.log('tickers:' + tickers)
   console.log('Weights:' + weights)
       //get data

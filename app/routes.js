@@ -58,7 +58,7 @@ module.exports = function(app, passport) {
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/dashboard', isLoggedIn, function(req, res) {
-		res.render('dashboard.ejs', {
+		res.render('dashboard_withgauges_2jan2018.ejs', {
 			user : req.user // get the user out of session and pass to template
 		});
 	});
@@ -83,12 +83,10 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/news', isLoggedIn, function(req, res) {
-		res.render('template.ejs', {
+		res.render('dashboard_withgauges_2jan2018edit.ejs', {
 			user : req.user // get the user out of session and pass to template
 		});
 	});
-
-
 
 	// =====================================
 	// LOGOUT ==============================

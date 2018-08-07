@@ -11,10 +11,19 @@
 		body 		{ padding-top:2px; word-wrap:break-word; }
 	</style>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>  
+
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+
+
+
 <script src="http://blacklabel.github.io/indicators/js/rsi.js"></script>
 
 <script>
@@ -34,6 +43,115 @@ $(document).ready(function(){
 	$("#removeStock").hide()
 	$("#stockesGroup").hide()
 	var counter = 2;
+
+
+var gaugeOptions = {
+
+    chart: {
+        type: 'solidgauge'
+    },
+
+    title: null,
+
+    pane: {
+        center: ['50%', '85%'],
+        size: '140%',
+        startAngle: -90,
+        endAngle: 90,
+        background: {
+            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+            innerRadius: '60%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    tooltip: {
+        enabled: false
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0.1, '#55BF3B'], // green
+            [0.5, '#DDDF0D'], // yellow
+            [0.9, '#DF5353'] // red
+        ],
+        lineWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        title: {
+            y: -70
+        },
+        labels: {
+            y: 16
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 5,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    }
+};
+
+// The speed gauge
+var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+    yAxis: {
+        min: 0,
+        max: 200,
+        title: {
+            text: 'Speed'
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Speed',
+        data: [80],
+        dataLabels: {
+            format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                   '<span style="font-size:12px;color:silver">km/h</span></div>'
+        },
+        tooltip: {
+            valueSuffix: ' km/h'
+        }
+    }]
+
+}));
+
+// The RPM gauge
+var chartRpm = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
+    yAxis: {
+        min: 0,
+        max: 5,
+        title: {
+            text: 'RPM'
+        }
+    },
+
+    series: [{
+        name: 'RPM',
+        data: [1],
+        dataLabels: {
+            format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y:.1f}</span><br/>' +
+                   '<span style="font-size:12px;color:silver">* 1000 / min</span></div>'
+        },
+        tooltip: {
+            valueSuffix: ' revolutions/min'
+        }
+    }]
+
+}));
 
 	//on start up
 	socket.on('portfolio_list', function(portfolios){
@@ -62,6 +180,35 @@ $(document).ready(function(){
   var x = (new Date()).getTime(); // current time
   var y = data;
   series.addPoint([x, y], true, true);
+
+  var point,
+        newVal,
+        inc;
+
+    if (chartSpeed) {
+        point = chartSpeed.series[0].points[0];
+        inc = Math.round((Math.random() - 0.5) * 100);
+        newVal = point.y + inc;
+
+        if (newVal < 0 || newVal > 200) {
+            newVal = point.y - inc;
+        }
+
+        point.update(newVal);
+    }
+
+    // RPM
+    if (chartRpm) {
+        point = chartRpm.series[0].points[0];
+        inc = Math.random() - 0.5;
+        newVal = point.y + inc;
+
+        if (newVal < 0 || newVal > 5) {
+            newVal = point.y - inc;
+        }
+
+        point.update(newVal);
+    }
   
   });  
 
@@ -294,6 +441,12 @@ Highcharts.stockChart('livecharts', {
 
 </div>
 <div id="livecharts" style="height: 400px; min-width: 310px"></div>
+
+<div style="width: 600px; height: 400px; margin: 0 auto">
+    <div id="container-speed" style="width: 300px; height: 200px; float: left"></div>
+    <div id="container-rpm" style="width: 300px; height: 200px; float: left"></div>
+</div>
+
 
 
 
