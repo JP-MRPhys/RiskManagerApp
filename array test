@@ -1,6 +1,0 @@
-var express  = require('express');
-var app      = express();
-var server = require('http').createServer(app);  
-
-server.listen(1000);
-console.log('The magic happens on port ' + port);
