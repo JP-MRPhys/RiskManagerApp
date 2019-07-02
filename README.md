@@ -10,3 +10,4 @@ Technology employed
 3. Real time data feed 
 4. NodeJs for backend
 5. jQUERY frontend
+6. Deployed on AWS
