@@ -1,11 +1,11 @@
 # Risk Manager and portfolio analytics 
 
 
-A basic web-app to do portfolio optimization and risk analytics 
+A basic web-app to do portfolio optimization and risk analytics (personal project) unpublished
 
 Technology employed
 
-1. Kafka for data piping
+1. Kafka for data pipeing
 2. Spark for real time beta estimation
 3. Real time data feed: IEX 
 4. NodeJs for backend
