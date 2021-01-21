@@ -38,7 +38,7 @@
     "passport.socketio": "^3.7.0",
     "portfolio-allocation": "0.0.4",
     "portfolio-analytics": "0.0.4",
-    "socket.io": "^2.0.3",
+    "socket.io": "^2.4.0",
     "utf-8-validate": "^4.0.0",
     "yahoo-finance": "^0.3.5"
   }
